@@ -144,7 +144,7 @@ namespace TabloidCLI.UserInterfaceManagers
             post.Blog = blogs[selectedBlogIndex];
 
             Console.WriteLine();
-            Console.Write("Publish date (YYYY-MM-DD): ");
+            Console.Write("Publish date (MM-DD-YYYY): ");
             post.PublishDateTime = DateTime.Parse(Console.ReadLine());
 
             _postRepository.Insert(post);
