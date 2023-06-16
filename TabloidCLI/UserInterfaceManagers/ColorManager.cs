@@ -26,6 +26,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 3) WOO");
             Console.WriteLine(" 4) YUCK");
             Console.WriteLine(" 5) BLINDING");
+            Console.WriteLine(" 6) Default");
 
             Console.Write("> ");
             string choice = Console.ReadLine();
@@ -52,6 +53,11 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "5":
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Clear();
+                    return _parentUI;
+                case "6":
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.Clear();
                     return _parentUI;
                 default:

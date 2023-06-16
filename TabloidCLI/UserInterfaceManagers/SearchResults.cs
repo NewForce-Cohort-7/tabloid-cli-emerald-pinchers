@@ -7,7 +7,7 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private List<T> _results = new List<T>();
 
-        public string Title { get; set; } = "Search Results";
+        public string Title { get; set; } = "Search Results: ";
 
         public bool NoResultsFound
         {
@@ -28,6 +28,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
             foreach (T result in _results)
             {
+                Console.WriteLine("");
                 Console.WriteLine(" " + result);
             }
 

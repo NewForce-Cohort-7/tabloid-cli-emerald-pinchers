@@ -113,15 +113,26 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 if (!postResults.NoResultsFound)
                 {
+                    Console.WriteLine("*-----------* Posts with matching Tag *-----------*");
+                    Console.WriteLine("");
                     postResults.Display();
+                    Console.WriteLine("");
+
                 }
                 if (!authorResults.NoResultsFound)
                 {
+                    Console.WriteLine("*----------* Authors with matching Tag *----------*");
+                    Console.WriteLine("");
                     authorResults.Display();
+                    Console.WriteLine("");
+
                 }
                 if (!blogResults.NoResultsFound)
                 {
+                    Console.WriteLine("*-----------* Blogs with matching Tag *-----------*");
+                    Console.WriteLine("");
                     blogResults.Display();
+                    Console.WriteLine("");
                 }
             }
         }
