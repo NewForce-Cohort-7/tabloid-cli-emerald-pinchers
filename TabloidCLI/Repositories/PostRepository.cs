@@ -1,9 +1,13 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
-using Microsoft.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TabloidCLI.Models;
+using TabloidCLI.Repositories;
 
-namespace TabloidCLI.Repositories
+namespace TabloidCLI
 {
     public class PostRepository : DatabaseConnector, IRepository<Post>
     {
@@ -11,7 +15,28 @@ namespace TabloidCLI.Repositories
 
         public List<Post> GetAll()
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT id,
+                                               Title,
+                                               URL
+                                            FROM Post";
+
+                    List<Post> posts = new List<Post>();
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Post post = new Post()
+                        {
+
+                        }
+                    }
+                }
+            }
         }
 
         public Post Get(int id)
