@@ -8,12 +8,16 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private readonly IUserInterfaceManager _parentUI;
         private PostRepository _postRepository;
+        private AuthorRepository _authorRepository;
+        private BlogRepository _blogRepository;
         private string _connectionString;
 
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
             _postRepository = new PostRepository(connectionString);
+            _authorRepository = new AuthorRepository(connectionString);
+            _blogRepository = new BlogRepository(connectionString);
             _connectionString = connectionString;
         }
 
@@ -22,7 +26,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine("Post Menu");
             Console.WriteLine(" 1) List Posts");
             Console.WriteLine(" 2) Post Details");
-            Console.WriteLine(" 3) Add Post");
+            Console.WriteLine(" 3) Add Post to Favorites");
             Console.WriteLine(" 4) Edit Post");
             Console.WriteLine(" 5) Remove Post");
             Console.WriteLine(" 0) Go Back");
@@ -119,8 +123,36 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Url: ");
             post.Url = Console.ReadLine();
 
+            Console.WriteLine();
+            Console.WriteLine("Select Author:");
+            List<Author> authors = _authorRepository.GetAll();
+            for (int i = 0; i < authors.Count; i++)
+            {
+                Console.WriteLine($"{i + 1} - {authors[i].FirstName} {authors[i].LastName}");
+            }
+            int selectedAuthorIndex = Convert.ToInt32(Console.ReadLine()) - 1;
+            post.Author = authors[selectedAuthorIndex];
+
+            Console.WriteLine();
+            Console.WriteLine("Select Blog:");
+            List<Blog> blogs = _blogRepository.GetAll(); 
+            for (int i = 0; i < blogs.Count; i++)
+            {
+                Console.WriteLine($"{i + 1} - {blogs[i].Title}");
+            }
+            int selectedBlogIndex = Convert.ToInt32(Console.ReadLine()) - 1;
+            post.Blog = blogs[selectedBlogIndex];
+
+            Console.WriteLine();
+            Console.Write("Publish date (YYYY-MM-DD): ");
+            post.PublishDateTime = DateTime.Parse(Console.ReadLine());
+
             _postRepository.Insert(post);
+
+            Console.WriteLine();
+            Console.WriteLine("Post added successfully!");
         }
+
 
         private void Edit()
         {

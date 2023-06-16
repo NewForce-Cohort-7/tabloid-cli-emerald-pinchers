@@ -161,18 +161,25 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Post (Title, Url, PublishDateTime, AuthorId, BlogId)
-                                                 VALUES (@Title, @Url, @PublishDateTime, @AuthorId, @BlogId)";
-                    cmd.Parameters.AddWithValue("@Title", post.Title);
-                    cmd.Parameters.AddWithValue("@Url", post.Url);
-                    cmd.Parameters.AddWithValue("@PublishDateTime", DateTime.Now);
-                    cmd.Parameters.AddWithValue("@AuthorId", post.Author.Id);
-                    cmd.Parameters.AddWithValue("@BlogId", post.Blog.Id);
+                    cmd.CommandText = @"
+            INSERT INTO Post (Title, Url, PublishDateTime, AuthorId, BlogId)
+            OUTPUT INSERTED.ID
+            VALUES (@title, @url, @publishDateTime, @authorId, @blogId)";
 
-                    cmd.ExecuteNonQuery();
+                    cmd.Parameters.AddWithValue("@title", post.Title);
+                    cmd.Parameters.AddWithValue("@url", post.Url);
+                    cmd.Parameters.AddWithValue("@publishDateTime", post.PublishDateTime);
+                    cmd.Parameters.AddWithValue("@authorId", post.Author.Id); // assuming Author object is not null
+                    cmd.Parameters.AddWithValue("@blogId", post.Blog.Id); // assuming Blog object is not null
+
+                    int id = (int)cmd.ExecuteScalar();
+
+                    post.Id = id;
                 }
             }
         }
+
+
 
         public void Update(Post post)
         {
