@@ -9,6 +9,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.WriteLine("Pleasant Greetings");
+            Console.WriteLine("                         ,.---.                                                                 \r\n               ,,,,     /    _ `.                                                              \r\n                \\\\\\\\   /      \\  )                                                          \r\n                 |||| /\\/``-.__\\/                                                                 \r\n                 ::::/\\/_                   _________                                                    \r\n {{`-.__.-'(`(^^(^^^(^ 9 `.========='    _ /_|_____|_\\ _                                    \r\n{{{{{{ { ( ( (  (   (-----:=               '. \\   / .'               \r\n {{.-'~~'-.(,(,,(,,,(__6_.'=========.        '.\\ /.'           \r\n                 ::::\\/\\                       '.'      \r\n                 |||| \\/\\  ,-'/\\                     \r\nEmerald         ////   \\ `` _/  )                                   \r\n Pinchers      ''''     \\  `   /                                \r\n                         `---''");
             Console.WriteLine("Main Menu");
 
             Console.WriteLine(" 1) Journal Management");
@@ -17,9 +19,10 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 4) Post Management");
             Console.WriteLine(" 5) Tag Management");
             Console.WriteLine(" 6) Search by Tag");
+            Console.WriteLine(" 7) Choose Background Color");
             Console.WriteLine(" 0) Exit");
 
-            Console.Write("> ");
+            Console.Write(">Choose an option: ");
             string choice = Console.ReadLine();
             switch (choice)
             {
@@ -29,6 +32,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "4": throw new NotImplementedException();
                 case "5": return new TagManager(this, CONNECTION_STRING);
                 case "6": return new SearchManager(this, CONNECTION_STRING);
+                case "7": return new ColorManager(this);
                 case "0":
                     Console.WriteLine("Good bye");
                     return null;
