@@ -9,6 +9,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.WriteLine("Pleasant Greetings");
+            Console.WriteLine("                         ,.---.                                                                 \r\n               ,,,,     /    _ `.                                                              \r\n                \\\\\\\\   /      \\  )                                                          \r\n                 |||| /\\/``-.__\\/                                                                 \r\n                 ::::/\\/_                   _________                                                    \r\n {{`-.__.-'(`(^^(^^^(^ 9 `.========='    _ /_|_____|_\\ _                                    \r\n{{{{{{ { ( ( (  (   (-----:=               '. \\   / .'               \r\n {{.-'~~'-.(,(,,(,,,(__6_.'=========.        '.\\ /.'           \r\n                 ::::\\/\\                       '.'      \r\n                 |||| \\/\\  ,-'/\\                     \r\nEmerald         ////   \\ `` _/  )                                   \r\n Pinchers      ''''     \\  `   /                                \r\n                         `---''");
             Console.WriteLine("Main Menu");
 
             Console.WriteLine(" 1) Journal Management");
@@ -19,7 +21,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 6) Search by Tag");
             Console.WriteLine(" 0) Exit");
 
-            Console.Write("> ");
+            Console.Write(">Choose an option: ");
             string choice = Console.ReadLine();
             switch (choice)
             {
