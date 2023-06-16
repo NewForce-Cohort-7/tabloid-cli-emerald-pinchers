@@ -178,8 +178,8 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = $@"SELECT b.Id
-                                                b.Title
+                    cmd.CommandText = $@"SELECT b.Id,
+                                                b.Title,
                                                 b.URL
                                                 FROM Tag t
                                                 JOIN BlogTag bt ON bt.TagId = t.Id
