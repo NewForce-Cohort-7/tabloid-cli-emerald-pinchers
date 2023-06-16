@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using TabloidCLI.Models;
 
 namespace TabloidCLI.UserInterfaceManagers
