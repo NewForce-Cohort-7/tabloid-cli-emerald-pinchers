@@ -71,7 +71,9 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Insert Journal Entry: ");
             journal.Content = Console.ReadLine();
 
+            journal.CreateDateTime = DateTime.Now;
 
+            _journalRepository.Insert(journal);
         }
     }
 }
