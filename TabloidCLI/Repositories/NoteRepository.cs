@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TabloidCLI.Models;
+using TabloidCLI.Repositories;
 
 namespace TabloidCLI.Repositories
 {
@@ -31,11 +32,11 @@ namespace TabloidCLI.Repositories
                                         WHERE PostId = @postId";
                     cmd.Parameters.AddWithValue("@postId", _postId);
                     SqlDataReader reader = cmd.ExecuteReader();
-                    List<Note> notes = new List<Note>();    
+                    List<Note> notes = new List<Note>();
 
                     while (reader.Read())
                     {
-                        Note note = new Note();
+                        Note note = new Note()
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Title = reader.GetString(reader.GetOrdinal("Title")),
@@ -44,6 +45,7 @@ namespace TabloidCLI.Repositories
                         };
                         notes.Add(note);
                     }
+
                     reader.Close();
 
                     return notes;
@@ -73,6 +75,11 @@ namespace TabloidCLI.Repositories
                     cmd.ExecuteNonQuery();
                 }    
             }
+        }
+
+        public void Update(Note note)
+        {
+            throw new NotImplementedException();
         }
 
         public void Delete(int id)
