@@ -136,6 +136,9 @@ namespace TabloidCLI.UserInterfaceManagers
             if (journalToDelete != null)
             {
                 _journalRepository.Delete(journalToDelete.Id);
+                Console.WriteLine("");
+                Console.WriteLine($"{journalToDelete.Title} Journal Entry has been deleted!");
+                Console.WriteLine("");
             }
         }
     }
