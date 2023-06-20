@@ -8,6 +8,7 @@ namespace TabloidCLI.UserInterfaceManagers
 {
     public class JournalManager : IUserInterfaceManager
     {
+        //these are just us declaring variables to use later on in the code below
         private readonly IUserInterfaceManager _parentUI;
         private JournalRepository _journalRepository;
         private string _connectionString;
@@ -21,6 +22,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            //switch case that creates a menu for user
             Console.WriteLine("Journal Menu");
             Console.WriteLine(" 1) List Journals");
             Console.WriteLine(" 2) Add Journal");
@@ -45,12 +47,14 @@ namespace TabloidCLI.UserInterfaceManagers
                     Remove();
                     return this;
                 case "0":
+                    //you could see the _parentUI as sort of the "Main Menu" for the app. It brings us back to the parent menu which happens to show the MainMenuManager
                     return _parentUI;
                 default:
                     Console.WriteLine("Invalid Selection");
                     return this;
             }
         }
+        //We now create new methods to use our methods in our JournalRepository.cs to specifically run them when we choose the appropriate menu selection from our switch case above. 1 returns the method List(), 2 returns the method Add(), etc.
         private void List()
         {
             List<Journal> journals = _journalRepository.GetAll();
@@ -58,6 +62,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine(journal);
             }
+            Console.WriteLine();
         }
         private Journal Choose(string prompt = null)
         {
@@ -69,10 +74,11 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(prompt);
 
             List<Journal> journals = _journalRepository.GetAll();
-
+            // using a for loop and listing all of the journals to pick from is a much better way of letting someone select an item from a list than just searching it by Id.
             for (int i = 0; i < journals.Count; i++)
             {
                 Journal journal = journals[i];
+                //We add 1 to the index so it starts a list with 1 instead of 0. It makes more sense to humans to start at 1
                 Console.WriteLine($" {i + 1}) {journal.Title}");
             }
             Console.Write("> ");
@@ -81,10 +87,12 @@ namespace TabloidCLI.UserInterfaceManagers
             try
             {
                 int choice = int.Parse(input);
+                //when we eventually choose an entry, we -1 from the choice so the smoke and mirrors of a list starting at 1 doesnt affect the choice the user makes.
                 return journals[choice - 1];
             }
             catch (Exception ex)
             {
+                //If the user doesnt enter a valid choice in, throw an exception and dont return anything
                 Console.WriteLine("Invalid selection");
                 return null;
             }
