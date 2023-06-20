@@ -13,16 +13,17 @@ namespace TabloidCLI.UserInterfaceManagers
         private TagRepository _tagRepository;
         private NoteRepository _noteRepository;
         private int _postId;
-        private string _connectionString;
+        private string _connectionString; // we have to establish this as it is used in note manager
 
         public PostDetailManager(IUserInterfaceManager parentUI, string connectionString, int postId)
         {
             _parentUI = parentUI;
-            _connectionString = connectionString;
+            _connectionString = connectionString; 
             _blogRepository = new BlogRepository(connectionString);
             _postRepository = new PostRepository(connectionString);
             _tagRepository = new TagRepository(connectionString);
-            _noteRepository = new NoteRepository(postId, connectionString);
+            // this is for the note manager. we need the post id to get the notes for that post, and connectionstring to pass to the noterepository
+            _noteRepository = new NoteRepository(postId, connectionString); 
             _postId = postId;
         }
 
@@ -50,7 +51,8 @@ namespace TabloidCLI.UserInterfaceManagers
                     RemoveTag();
                     return this;
                 case "4":
-                    NoteManager noteManager = new NoteManager(this, _postId, _connectionString);
+                    // we connect the notemanager to our switch/case by creating a new instance of it and passing in the connectionstring and postid. this = the postdetailmanager
+                    NoteManager noteManager = new NoteManager(this, _postId, _connectionString); 
                     return noteManager;
                 case "0":
                     return _parentUI;
