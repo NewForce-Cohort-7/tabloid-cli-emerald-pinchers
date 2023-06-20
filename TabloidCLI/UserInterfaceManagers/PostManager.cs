@@ -109,7 +109,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
-        private void Add()
+        private void Add() // This method will allow the user to add a new favorite post to the database
         {
             Console.WriteLine();
             Console.WriteLine("New Post");
@@ -117,33 +117,36 @@ namespace TabloidCLI.UserInterfaceManagers
 
             Console.WriteLine();
             Console.Write("Title: ");
-            post.Title = Console.ReadLine();
+            post.Title = Console.ReadLine(); // This will grab the title from the user and assign it to the post
 
             Console.WriteLine();
             Console.Write("Url: ");
-            post.Url = Console.ReadLine();
+            post.Url = Console.ReadLine(); // This will grab the url from the user and assign it to the post
 
             Console.WriteLine();
             Console.WriteLine("Select Author:");
-            List<Author> authors = _authorRepository.GetAll();
-            for (int i = 0; i < authors.Count; i++)
+            // In order to select an author, we need to get all the authors from the database
+            List<Author> authors = _authorRepository.GetAll(); // Get all the authors from the database
+            for (int i = 0; i < authors.Count; i++) // Loop through the list of authors
             {
-                Console.WriteLine($"{i + 1} - {authors[i].FirstName} {authors[i].LastName}");
+                Console.WriteLine($"{i + 1} - {authors[i].FirstName} {authors[i].LastName}"); // Display the author's full name
             }
-            int selectedAuthorIndex = Convert.ToInt32(Console.ReadLine()) - 1;
-            post.Author = authors[selectedAuthorIndex];
+            int selectedAuthorIndex = Convert.ToInt32(Console.ReadLine()) - 1; // Get the index of the selected author
+            post.Author = authors[selectedAuthorIndex]; // Assign the selected author to the post
 
             Console.WriteLine();
+            // In order to select a blog, we need to get all the blogs from the database
             Console.WriteLine("Select Blog:");
-            List<Blog> blogs = _blogRepository.GetAll(); 
-            for (int i = 0; i < blogs.Count; i++)
+            List<Blog> blogs = _blogRepository.GetAll(); // Get all the blogs from the database
+            for (int i = 0; i < blogs.Count; i++) // Loop through the list of blogs
             {
-                Console.WriteLine($"{i + 1} - {blogs[i].Title}");
+                Console.WriteLine($"{i + 1} - {blogs[i].Title}"); // Display the blog title
             }
-            int selectedBlogIndex = Convert.ToInt32(Console.ReadLine()) - 1;
-            post.Blog = blogs[selectedBlogIndex];
+            int selectedBlogIndex = Convert.ToInt32(Console.ReadLine()) - 1; // Get the index of the selected blog
+            post.Blog = blogs[selectedBlogIndex]; // Assign the selected blog to the post
 
             Console.WriteLine();
+            // Grab the publish date and assign it to the post
             Console.Write("Publish date (MM-DD-YYYY): ");
             post.PublishDateTime = DateTime.Parse(Console.ReadLine());
 
