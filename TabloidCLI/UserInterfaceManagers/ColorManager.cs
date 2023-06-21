@@ -29,13 +29,13 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine(" 6) Default");
 
             Console.Write("> ");
-            string choice = Console.ReadLine();
+            string choice = Console.ReadLine(); // read the users input
             switch (choice)
             {
                 case "1":
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    Console.Clear();
-                    return _parentUI;
+                    Console.BackgroundColor = ConsoleColor.Red;// set background color to red
+                    Console.Clear(); // clear the console 
+                    return _parentUI; // return the parent user interface manager
                 case "2":
                     Console.BackgroundColor = ConsoleColor.Blue;
                     Console.Clear();
