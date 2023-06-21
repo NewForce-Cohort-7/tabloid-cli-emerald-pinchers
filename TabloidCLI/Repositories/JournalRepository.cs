@@ -15,6 +15,7 @@ namespace TabloidCLI
 
         public List<Journal> GetAll()
         {
+            //Method that instantiates a list of journal entries
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
@@ -47,6 +48,7 @@ namespace TabloidCLI
         }
         public Journal Get(int id)
         {
+            //Method to get a specific journal entry based on it's id
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
@@ -95,7 +97,7 @@ namespace TabloidCLI
                     cmd.Parameters.AddWithValue("@title", journal.Title);
                     cmd.Parameters.AddWithValue("@content", journal.Content);
                     cmd.Parameters.AddWithValue("@createDateTime", DateTime.Now);
-
+                    // use ExecuteNonQuery when nothing in the database is being queried, but instead, is being modified, like with this method to add a journal entry, or the one below methods to update or delete an entry.
                     cmd.ExecuteNonQuery();
                 }
             }
