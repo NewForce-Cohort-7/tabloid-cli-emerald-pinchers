@@ -15,9 +15,13 @@ namespace TabloidCLI
 
         public List<Blog> GetAll()
         {
+            //USE connection
             using (SqlConnection conn = Connection)
             {
+                //OPEN connection
                 conn.Open();
+
+                //USE command
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT id,
@@ -25,9 +29,12 @@ namespace TabloidCLI
                                                Url
                                           FROM Blog";
 
+                    //create a new List to store our Blog objects
                     List<Blog> blogs = new List<Blog>();
 
                     SqlDataReader reader = cmd.ExecuteReader();
+
+                    //returns TRUE as long as there is more data to read
                     while (reader.Read())
                     {
                         Blog blog = new Blog()
@@ -39,6 +46,7 @@ namespace TabloidCLI
                         blogs.Add(blog);
                     }
 
+                    //close reader
                     reader.Close();
 
                     return blogs;
@@ -48,9 +56,13 @@ namespace TabloidCLI
 
         public Blog Get(int id)
         {
+            //USE connection
             using (SqlConnection conn = Connection)
             {
+                //OPEN connection
                 conn.Open();
+
+                //USE command
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"SELECT b.Id AS BlogId,

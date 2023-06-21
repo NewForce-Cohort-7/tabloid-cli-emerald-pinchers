@@ -34,6 +34,8 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "1":
                     List();
                     return this;
+
+                //after a blog is selected with choose, and it is confirmed NOT null, the BlogDetailManager method is called
                 case "2":
                     Blog blog = Choose();
                     if (blog == null)
@@ -54,13 +56,16 @@ namespace TabloidCLI.UserInterfaceManagers
                     Remove();
                     return this;
                 case "0":
+                    //returns user to main menu
                     return _parentUI;
                 default:
+                    //return "error" string if selection invalid
                     Console.WriteLine("!--- INVALID SELECTION ---!");
                     return this;
             }
         }
 
+        // This method lists all of the Blogs
         private void List()
         {
             Console.WriteLine();
@@ -72,11 +77,13 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine();
         }
 
+        // This method lets the user select a Blog from the list 
+        // note: we are adding 1 to index of items, then subtracting 1 to get the correct index back before utilizing user input
         private Blog Choose(string prompt = null)
         {
             if (prompt == null)
             {
-                prompt = "Please choose an Blog:";
+                prompt = "Please choose a Blog:";
             }
 
             Console.WriteLine(prompt);
@@ -105,6 +112,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
         }
 
+        // This method lets the user create a blog object to be inserted into the blog repo
         private void Add()
         {
             Console.WriteLine();
@@ -122,6 +130,7 @@ namespace TabloidCLI.UserInterfaceManagers
             _blogRepository.Insert(blog);
         }
 
+        // This method allows the user to edit (update) a blog entry
         private void Edit()
         {
             Console.WriteLine();
@@ -151,6 +160,7 @@ namespace TabloidCLI.UserInterfaceManagers
             _blogRepository.Update(blogToEdit);
         }
 
+        // This method allows the user to remove (delete) a blog entry
         private void Remove()
         {
             Console.WriteLine();
