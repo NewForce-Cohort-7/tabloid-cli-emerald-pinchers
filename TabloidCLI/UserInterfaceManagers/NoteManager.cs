@@ -34,28 +34,28 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
-                    List();
+                    List(); // call List() method to display list of notes
                     return this;
                 case "2":
-                    Add();
+                    Add(); // add new note
                     return this;
                 case "3":
-                    Remove();
+                    Remove(); // remove note
                     return this;
                 case "0":
                     return _parentUI;
                 default:
-                    Console.WriteLine("Invalid Selection");
+                    Console.WriteLine("Invalid Selection"); // display message for an invalid selection
                     return this;
             }
         }
 
         private void List()
         {
-            List<Note> notes = _noteRepository.GetAll();
+            List<Note> notes = _noteRepository.GetAll(); // get all notes from note repo
             foreach (Note note in notes)
             {
-                Console.WriteLine(note);
+                Console.WriteLine(note); // display each note
             }
         }
         private Note Choose(string prompt = null)
@@ -72,7 +72,7 @@ namespace TabloidCLI.UserInterfaceManagers
             for (int i = 0; i < notes.Count; i++)
             {
                 Note note = notes[i];
-                Console.WriteLine($" {i + 1}) {note}");
+                Console.WriteLine($" {i + 1}) {note}"); // display each note with its index
             }
             Console.Write("> ");
 
@@ -80,7 +80,7 @@ namespace TabloidCLI.UserInterfaceManagers
             try
             {
                 int choice = int.Parse(input);
-                return notes[choice - 1];
+                return notes[choice - 1]; // return the chosen note based on users input
             }
             catch (Exception)
             {

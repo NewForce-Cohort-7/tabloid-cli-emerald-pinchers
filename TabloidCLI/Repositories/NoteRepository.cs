@@ -19,6 +19,7 @@ namespace TabloidCLI.Repositories
 
         public List<Note> GetAll()
         {
+            // establish connection to database
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
@@ -29,10 +30,10 @@ namespace TabloidCLI.Repositories
                                                Content,
                                                CreateDateTime
                                         FROM Note
-                                        WHERE PostId = @postId";
-                    cmd.Parameters.AddWithValue("@postId", _postId);
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    List<Note> notes = new List<Note>();
+                                        WHERE PostId = @postId"; // query to retrieve notes with specific PostId
+                    cmd.Parameters.AddWithValue("@postId", _postId); // set parameter value for PostId
+                    SqlDataReader reader = cmd.ExecuteReader(); // execute to sql command and retrieve a data reader
+                    List<Note> notes = new List<Note>(); // create a list to store notes
 
                     while (reader.Read())
                     {
@@ -43,19 +44,19 @@ namespace TabloidCLI.Repositories
                             Content = reader.GetString(reader.GetOrdinal("Content")),
                             CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime"))
                         };
-                        notes.Add(note);
+                        notes.Add(note); // add note to list
                     }
 
-                    reader.Close();
+                    reader.Close(); // close data reader
 
-                    return notes;
+                    return notes; // return list of notes
                 }
             }
         }
 
         public Note Get(int id)
         {
-            return null;
+            return null; // placeholder method, not implemented
         }
 
         public void Insert(Note note)
@@ -63,11 +64,11 @@ namespace TabloidCLI.Repositories
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
-                using (SqlCommand cmd = conn.CreateCommand())
+                using (SqlCommand cmd = conn.CreateCommand()) // create new sql command object
                 {
                     cmd.CommandText = @"INSERT INTO Note (Title, Content, CreateDateTime, PostId)
-                                        VALUES (@title, @content, @createDateTime, @postId)";
-                    cmd.Parameters.AddWithValue("@title", note.Title);
+                                        VALUES (@title, @content, @createDateTime, @postId)"; // query to insert a new note
+                    cmd.Parameters.AddWithValue("@title", note.Title); // set paramters for note properties
                     cmd.Parameters.AddWithValue("@content", note.Content);
                     cmd.Parameters.AddWithValue("@createDateTime", note.CreateDateTime);
                     cmd.Parameters.AddWithValue("@postId", _postId);

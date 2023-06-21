@@ -24,12 +24,12 @@ namespace TabloidCLI
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        Tag tag = new Tag()
+                        Tag tag = new Tag() // create new tag object and populate its properties
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Name = reader.GetString(reader.GetOrdinal("Name")),
                         };
-                        tags.Add(tag);
+                        tags.Add(tag); // add new tag to the list
                     }
 
                     reader.Close();
@@ -53,8 +53,8 @@ namespace TabloidCLI
                 {
                     cmd.CommandText = @"INSERT INTO Tag (Name)
                                         OUTPUT INSERTED.Id
-                                        VALUES (@name)";
-                    cmd.Parameters.AddWithValue("@name", tag.Name);
+                                        VALUES (@name)"; // query to insert new tag
+                    cmd.Parameters.AddWithValue("@name", tag.Name); // set parameter value for tag name
                     int id = (int)cmd.ExecuteScalar();
 
                     tag.Id = id;
@@ -110,21 +110,21 @@ namespace TabloidCLI
                                           FROM Author a
                                                LEFT JOIN AuthorTag at on a.Id = at.AuthorId
                                                LEFT JOIN Tag t on t.Id = at.TagId
-                                         WHERE t.Name LIKE @name";
-                    cmd.Parameters.AddWithValue("@name", $"%{tagName}%");
+                                         WHERE t.Name LIKE @name"; // sql query to search authors by tag name
+                    cmd.Parameters.AddWithValue("@name", $"%{tagName}%");// set parameter value for tag name
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    SearchResults<Author> results = new SearchResults<Author>();
+                    SearchResults<Author> results = new SearchResults<Author>(); // create new SearchResults object for authors
                     while (reader.Read())
                     {
-                        Author author = new Author()
+                        Author author = new Author() // create new author and populate its properties
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
                             Bio = reader.GetString(reader.GetOrdinal("Bio")),
                         };
-                        results.Add(author);
+                        results.Add(author); // add the author to the search results
                     }
 
                     reader.Close();
@@ -148,8 +148,8 @@ namespace TabloidCLI
                                           FROM Post p
                                                JOIN PostTag pt on p.Id = pt.PostId
                                                JOIN Tag t on t.Id = pt.TagId
-                                          WHERE t.Name LIKE @name";
-                    cmd.Parameters.AddWithValue("@name", $"%{tagName}%");
+                                          WHERE t.Name LIKE @name"; // query to search Posts by tag name
+                    cmd.Parameters.AddWithValue("@name", $"%{tagName}%"); // set parameter value for tag name
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     SearchResults<Post> results = new SearchResults<Post>();

@@ -31,16 +31,16 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
-                    List();
+                    List(); // call list of tags
                     return this;
                 case "2":
-                    Add();
+                    Add(); // add tag 
                     return this;
                 case "3":
-                    Edit();
+                    Edit(); // edit tag
                     return this;
                 case "4":
-                    Remove();
+                    Remove(); // remove tag
                     return this;
                 case "0":
                     return _parentUI;
@@ -52,10 +52,10 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void List()
         {
-            List<Tag> tags = _tagRepository.GetAll();
+            List<Tag> tags = _tagRepository.GetAll(); // get all tags
             foreach (Tag tag in tags)
             {
-                Console.WriteLine(tag);
+                Console.WriteLine(tag); // display each tag
             }
         }
 
@@ -81,7 +81,7 @@ namespace TabloidCLI.UserInterfaceManagers
             try
             {
                 int choice = int.Parse(input);
-                return tags[choice - 1];
+                return tags[choice - 1]; // return chosen tag based off users input
             }
             catch (Exception ex) 
             {
@@ -96,14 +96,14 @@ namespace TabloidCLI.UserInterfaceManagers
             Tag tag = new Tag();
 
             Console.Write("Tag Name ");
-            tag.Name = Console.ReadLine();
+            tag.Name = Console.ReadLine(); // read the tag name from the user
 
-            _tagRepository.Insert(tag);
+            _tagRepository.Insert(tag); // insert new tag in tag repo
         }
 
         private void Edit()
         {
-            Tag tagToEdit = Choose("Choose tag to edit: ");
+            Tag tagToEdit = Choose("Choose tag to edit: "); // prompt user to choose a tag to edit 
             if (tagToEdit == null)
             {
                 return;
@@ -113,10 +113,10 @@ namespace TabloidCLI.UserInterfaceManagers
             string name = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(name))
             {
-                tagToEdit.Name = name;
+                tagToEdit.Name = name; // update the tag 
             }
 
-            _tagRepository.Update(tagToEdit);
+            _tagRepository.Update(tagToEdit); // update the tag in the tag repo
         }
 
         private void Remove()
@@ -134,7 +134,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 try
                 {
-                    _tagRepository.Delete(tagToDelete.Id);
+                    _tagRepository.Delete(tagToDelete.Id); // delete tag from tag repo
                     Console.WriteLine($"{tagToDelete.Name} deleted.");
                 }
                 catch (Exception ex)
